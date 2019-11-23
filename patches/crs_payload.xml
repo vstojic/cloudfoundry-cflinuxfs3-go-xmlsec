@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+          <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod>
+          <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
+          <Reference URI="#idf783b27d7648450bbd961e00d000c1c9">
+              <Transforms>
+                  <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></Transform>
+              </Transforms>
+              <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+              <DigestValue></DigestValue>
+          </Reference>
+      </SignedInfo>
+      <SignatureValue xmlns="http://www.w3.org/2000/09/xmldsig#"></SignatureValue>
+      <KeyInfo><X509Data>
+    <X509Certificate></X509Certificate>
+   </X509Data><KeyValue></KeyValue></KeyInfo>
+      <Object Id="idf783b27d7648450bbd961e00d000c1c9">
+          <CRSStatusMessage_OECD xmlns="urn:oecd:ties:csm:v1" version="1.0">
+              <MessageSpec>
+                  <TransmittingCountry>PL</TransmittingCountry>
+                  <ReceivingCountry>CH</ReceivingCountry>
+                  <MessageType>CRSMessageStatus</MessageType>
+                  <MessageRefId>StatusCH2017CHEA5D5162-2F41-B5EB-3179-0020167FFE39</MessageRefId>
+                  <Timestamp>2018-12-11T15:08:49.031+02:00</Timestamp>
+              </MessageSpec>
+              <CrsStatusMessage>
+                  <OriginalMessage>
+                      <OriginalMessageRefID>PL2017CH7ba11e1f-540f-5682-2d35-2efd3d3c9d42</OriginalMessageRefID>
+                  </OriginalMessage>
+                  <ValidationErrors>
+                      <RecordError>
+                          <Code>50011</Code>
+                          <Details>Production DocTypeIndic values (OECD0, OECD1, OECD2, OECD3) are not allowed in the test environment.</Details>
+                          <DocRefIDInError>PL2017CH5c42bae5-4274-4fa0-6a3a-a99a8e1bc3d3</DocRefIDInError>
+                      </RecordError>
+                      <RecordError>
+                          <Code>50011</Code>
+                          <Details>Production DocTypeIndic values (OECD0, OECD1, OECD2, OECD3) are not allowed in the test environment.</Details>
+                          <DocRefIDInError>PL2017CHe97bb8d8-607b-c760-2c01-fc5969c549de</DocRefIDInError>
+                      </RecordError>
+                      <RecordError>
+                          <Code>50011</Code>
+                          <Details>Production DocTypeIndic values (OECD0, OECD1, OECD2, OECD3) are not allowed in the test environment.</Details>
+                          <DocRefIDInError>PL2017CH18856973-9c40-eb9e-8d15-7c3d734f83ac</DocRefIDInError>
+                      </RecordError>
+                  </ValidationErrors>
+                  <ValidationResult>
+                      <Status>Rejected</Status>
+                      <ValidatedBy>dip-aia</ValidatedBy>
+                  </ValidationResult>
+              </CrsStatusMessage>
+          </CRSStatusMessage_OECD>
+      </Object>
+  </Signature>
