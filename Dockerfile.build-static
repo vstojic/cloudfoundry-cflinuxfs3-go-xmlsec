@@ -98,11 +98,11 @@ RUN git clone https://github.com/crewjam/go-xmlsec.git /go/src/github.com/crewja
 
 # Replace/add custom files
 WORKDIR /go/src/github.com/crewjam/go-xmlsec
-RUN mkdir -p /go/src/github.com/crewjam/go-xmlsec/patches
-COPY patches/* /go/src/github.com/crewjam/go-xmlsec/patches/
+RUN mkdir -p /go/src/github.com/crewjam/go-xmlsec/cli
+COPY cli/* /go/src/github.com/crewjam/go-xmlsec/cli/
 
 RUN export GO111MODULE=on
 RUN go get github.com/crewjam/errset
-RUN CGO_CFLAGS_ALLOW=".*" go build -tags static -ldflags '-s -extldflags "-static"' -o ./xmldsig ./patches/xmldsig.go
+RUN CGO_CFLAGS_ALLOW=".*" go build -tags static -ldflags '-s -extldflags "-static"' -o ./xmldsig ./cli/main.go
 RUN ldd ./xmldsig || true
 RUN ./xmldsig --help || true
