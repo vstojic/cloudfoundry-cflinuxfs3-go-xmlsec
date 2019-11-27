@@ -18,10 +18,9 @@ type CommandOutput struct {
 	err    error
 }
 
-func execCommand(cmd string, //wg *sync.WaitGroup,
-	output chan<- *CommandOutput) {
+func execCommand(cmd string, wg *sync.WaitGroup, output chan<- *CommandOutput) {
 
-	//defer wg.Done() // Need to signal to waitgroup that this goroutine is done
+	defer wg.Done() // Need to signal to waitgroup that this goroutine is done
 
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
@@ -38,7 +37,7 @@ func ExecCommand(cmd string) ([]byte, error) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go execCommand(cmd,
-		//&wg,
+		&wg,
 		output)
 	wg.Wait()
 	o := <-output
