@@ -1,3 +1,5 @@
 go-xmlsec
 xmldsig
+.*.cache
+*.droplet
 

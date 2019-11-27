@@ -1,0 +1,15 @@
+applications:
+- name: xmldsig
+  buildpacks:
+  - binary_buildpack
+#  - go_buildpack
+  - https://github.com/cloudfoundry/go-buildpack/releases/download/v1.8.42/go-buildpack-cflinuxfs2-v1.8.42.zip
+  command: go run main_local.go
+  memory: 2G
+  disk_quota: 4G
+  staging_env:
+    SOME_STAGING_VAR: "some staging value"
+  running_env:
+    SOME_RUNNING_VAR: "some running value"
+  env:
+    SOME_VAR: "some value"
