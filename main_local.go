@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/SimonBaeumer/cmd"
 )
 
 // Use the following command to generate the self-signed CSR:
@@ -15,6 +17,9 @@ import (
 //   -x509 -days 365 -out dip.crt \
 //   -subj '/CN=and/C=DE'
 var (
+	// The path to the statically compiled binary (CLI command) based on github.com/crewjam/go-xmlsec
+	// See https://github.com/vstojic/cloudfoundry-cflinuxfs3-go-xmlsec
+	xmldsigCmdPath, _        = filepath.Abs("./xmldsig")
 	privateKeyPath, _        = filepath.Abs("./cli/dip.key")
 	certPath, _              = filepath.Abs("./cli/dip.crt")
 	signatureTemplatePath, _ = filepath.Abs("./cli/crs_payload.xml")
@@ -92,26 +97,14 @@ func SignXML(signatureTemplate []byte, privateKey string) ([]byte, error) {
 		return nil, err
 	}
 
-	signedFile, err := ioutil.TempFile(os.TempDir(), "")
-	if err != nil {
-		return nil, err
-	}
-	defer os.Remove(signedFile.Name())
-
 	// Pass the adequate switches to the command (-k ... -s)
-	_, err = ExecCommand(
-		"cat " + signatureTemplateFile.Name() + " | " + XmldsigCmdPath + " -k " + privateKeyFile.Name() + " -s > " + signedFile.Name(),
-	)
+	cmd := cmd.NewCommand("cat " + signatureTemplateFile.Name() + " | " + xmldsigCmdPath + " -k " + privateKeyFile.Name() + " -s")
+	err = cmd.Execute()
 	if err != nil {
 		return nil, err
 	}
 
-	signed, err := ioutil.ReadFile(signedFile.Name())
-	if err != nil {
-		return nil, err
-	}
-
-	return signed, nil
+	return []byte(cmd.Stdout()), nil
 }
 
 func ValidateXMLSignature(message []byte, certificate []byte) error {
@@ -137,9 +130,8 @@ func ValidateXMLSignature(message []byte, certificate []byte) error {
 	defer os.Remove(certificateFile.Name())
 
 	// Pass the adequate switches to the command (-c ... -v)
-	_, err = ExecCommand(
-		"cat " + messageFile.Name() + " | " + XmldsigCmdPath + " -c " + certificateFile.Name() + " -v",
-	)
+	cmd := cmd.NewCommand("cat " + messageFile.Name() + " | " + xmldsigCmdPath + " -c " + certificateFile.Name() + " -v")
+	err = cmd.Execute()
 	if err != nil {
 		return nil
 	}
